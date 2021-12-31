@@ -1,0 +1,7 @@
+POST http://localhost:8000/api/v1/sentences/translate
+Content-Type: application/json
+Cookie: connect.sid=s%3A9s4IHXPThng3xfJwZHqvZB6qSUc56CCE.g82hpo4FJvf66aRkcqSm6OesXc6YG3x0YDK2dCtV5VI
+
+{
+    "text": "Sent"
+}

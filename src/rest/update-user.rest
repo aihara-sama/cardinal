@@ -1,0 +1,6 @@
+PATCH http://localhost:8000/api/v1/users/61b77be5f2855b4cffaa7145
+Content-Type: application/json
+
+{
+    "username": "johny"
+}

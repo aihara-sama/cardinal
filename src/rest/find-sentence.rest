@@ -1,0 +1,6 @@
+GEt http://localhost:8000/api/v1/sentences/12
+Content-Type: application/json
+Cookie: connect.sid=s%3AtHgND6OgDaFzFvhtttGVqz3T4kZqV9FT.mUN2OmIZufPRBOWhtGV2N39qoq4OQaAVnaQ6d0gURY8
+
+{
+}

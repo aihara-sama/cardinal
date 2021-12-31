@@ -1,0 +1,106 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  email    String @unique
+  password String
+  avatar   String @default("default-avatar.png")
+
+  sentences            Sentence[]
+  sentenceLikes        SentenceLike[]
+  sentenceViews        SentenceView[]
+  sentenceComments     SentenceComment[]
+  unreadCommentsNumber Int               @default(0)
+
+  @@map("users")
+}
+
+model Sentence {
+  id       Int    @id @default(autoincrement())
+  ru       String
+  en       String
+  authorId Int
+
+  author        User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  sentenceLikes SentenceLike[]
+  sentenceViews SentenceView[]
+  sentenceTags  SentenceTag[]
+  comments      SentenceComment[]
+
+  @@map("sentences")
+}
+
+model SentenceLike {
+  id         Int      @id @default(autoincrement())
+  author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId   Int
+  sentence   Sentence @relation(fields: [sentenceId], references: [id], onDelete: Cascade)
+  sentenceId Int
+
+  @@map("sentences_likes")
+}
+
+model SentenceView {
+  id         Int      @id @default(autoincrement())
+  author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId   Int
+  sentence   Sentence @relation(fields: [sentenceId], references: [id], onDelete: Cascade)
+  sentenceId Int
+
+  @@map("sentences_views")
+}
+
+model SentenceTag {
+  id        Int             @id @default(autoincrement())
+  tag       SentenceTagEnum @unique
+  sentences Sentence[]
+
+
+  @@map("sentences_tags")
+}
+
+model SentenceComment {
+  id                Int    @id @default(autoincrement())
+  message           String @db.VarChar(1000)
+  sentenceId        Int
+  authorId          Int
+  sentenceCommentId Int?
+
+  repliedComment SentenceComment?  @relation("SentenceComment", fields: [sentenceCommentId], references: [id], onDelete: Cascade)
+  commentReplies SentenceComment[] @relation("SentenceComment")
+  sentence       Sentence          @relation(fields: [sentenceId], references: [id], onDelete: Cascade)
+  author         User              @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("sentences_comments")
+}
+
+enum SentenceTagEnum {
+  Nature
+  Animals
+  History
+  Industry
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String   @db.VarChar(1000)
+  expiresAt DateTime
+
+
+  @@map("sessions")
+}

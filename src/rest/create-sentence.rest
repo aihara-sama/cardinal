@@ -1,0 +1,9 @@
+POST http://localhost:8000/api/v1/sentences
+Content-Type: application/json
+Cookie: connect.sid=s%3AR6AWlekRzHCLw5bP0QIbvNQyvyvjRAtP.m%2BjjtAR2rPrl8SMt9R5eax8cB6wasAog2bKLsonnLO0;
+
+{
+    "en": "Wild",
+    "ru": "Дикий",
+    "tagIds": [1,2,3]
+}
