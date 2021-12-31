@@ -1,13 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
-import firebaseSlice from '../features/firebase/firebaseSlice';
 import userReducer from '../features/user/userSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     counter: counterReducer,
-    firebase: firebaseSlice,
   },
 });
 

@@ -17,6 +17,8 @@ import {
 import { setUser } from '../../features/user/userSlice';
 import { useDispatch } from 'react-redux';
 
+import { signInWithGoogle } from '../../utils/firebase.utils';
+
 type Errors = {
   email: string;
   password: string;
@@ -133,6 +135,19 @@ const Login = () => {
               _focus={{}}
             >
               Login
+            </Button>
+            <Button
+              mt="5"
+              w="100%"
+              bg="gray.500"
+              color="light.primary"
+              type="submit"
+              _hover={{}}
+              _active={{}}
+              _focus={{}}
+              onclick={signInWithGoogle}
+            >
+              Login With google
             </Button>
           </form>
         </Box>
